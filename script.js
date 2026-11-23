@@ -503,9 +503,32 @@ function transferCalcToOrder() {
     showToast('Параметры расчёта добавлены в форму заявки');
 }
 
-function copyRequisites() {
-    const text = 'ООО «Симбирская промышленная индустрия»\nЮр. адрес: 432071, г. Ульяновск, ул. Нижнеполевая, д. 11\nПочт. адрес: 432001, г. Ульяновск, а/я 2223\nТел.: +7 (904) 192-73-66\nEmail: bekmatov_ruslan@mail.ru';
-    navigator.clipboard.writeText(text).then(() => showToast('Реквизиты скопированы в буфер обмена'));
+function downloadRequisites() {
+    if (!currentRequisitesList || !currentRequisitesList.length) {
+        showToast('Дождитесь загрузки реквизитов');
+        return;
+    }
+
+    const lines = [
+        'КАРТОЧКА ПРЕДПРИЯТИЯ (РЕКВИЗИТЫ)',
+        'ООО «Симбирская промышленная индустрия»',
+        '--------------------------------------------------',
+        ...currentRequisitesList.map(item => `${item.label}: ${item.value}`),
+        '--------------------------------------------------',
+        'Поставки деталей трубопровода и металлопроката из стали 20ЮЧ'
+    ];
+
+    const blob = new Blob(['\ufeff' + lines.join('\r\n')], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'Реквизиты_ООО_СПИ.txt';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+
+    showToast('Файл реквизитов (.txt) скачан');
 }
 
 let selectedFiles = [];
@@ -604,4 +627,72 @@ function showToast(message) {
 }
 
 loadPriceList();
+renderCalcFields();
+
+const REQUISITES_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRHMW5QmSMXE0VIOR0Ny-gxRr3q4CEPvzLMVrgXL0TFiSppwck_vT2GrxZGwh1C5vvOcccKlQyJT2wf/pub?gid=2073880674&single=true&output=csv';
+
+const fallbackRequisites = [
+    { label: 'Полное наименование', value: 'Общество с ограниченной ответственностью «Симбирская промышленная индустрия»' },
+    { label: 'Сокращённое наименование', value: 'ООО «СПИ»' },
+    { label: 'Юридический адрес', value: '432071, Россия, г. Ульяновск, ул. Нижнеполевая, д. 11' },
+    { label: 'Телефон отдела продаж', value: '+7 (904) 192-73-66' },
+    { label: 'Электронная почта', value: 'bekmatov_ruslan@mail.ru' }
+];
+
+let currentRequisitesList = [];
+
+function parseRequisitesCSV(text) {
+    const lines = text.trim().split(/\r?\n/);
+    return lines.slice(1).map(line => {
+        const cols = line.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(c => c.replace(/^"|"$/g, '').trim());
+        return { label: cols[0] || '', value: cols[1] || '' };
+    }).filter(item => item.label && item.value);
+}
+
+function formatRequisiteValue(label, value) {
+    if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+        return `<a href="mailto:${value}">${value}</a>`;
+    }
+    if (label.toLowerCase().includes('телефон')) {
+        const cleanPhone = value.replace(/[^+\d]/g, '');
+        return `<a href="tel:${cleanPhone}">${value}</a>`;
+    }
+    return value;
+}
+
+async function loadRequisites() {
+    const tbody = document.getElementById('requisites-table-body');
+    if (!tbody) return;
+
+    try {
+        if (!REQUISITES_CSV_URL || REQUISITES_CSV_URL.includes('ВСТАВЬТЕ_СЮДА')) {
+            currentRequisitesList = fallbackRequisites;
+        } else {
+            const response = await fetch(REQUISITES_CSV_URL);
+            const csvText = await response.text();
+            const parsed = parseRequisitesCSV(csvText);
+            currentRequisitesList = parsed.length ? parsed : fallbackRequisites;
+        }
+    } catch (err) {
+        currentRequisitesList = fallbackRequisites;
+    }
+
+    tbody.innerHTML = currentRequisitesList.map(item => `
+        <tr>
+            <td>${item.label}</td>
+            <td>${formatRequisiteValue(item.label, item.value)}</td>
+        </tr>
+    `).join('');
+}
+
+function copyRequisites() {
+    if (!currentRequisitesList.length) return;
+    const text = currentRequisitesList.map(item => `${item.label}: ${item.value}`).join('\n');
+    navigator.clipboard.writeText(text).then(() => {
+        showToast('Реквизиты скопированы в буфер обмена');
+    });
+}
+
+loadPriceList();
+loadRequisites();
 renderCalcFields();

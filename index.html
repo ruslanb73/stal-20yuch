@@ -340,29 +340,68 @@
                     материала для трубопроводов и сосудов под давлением.</p>
             </div>
 
-            <div class="chem-scroll" style="margin-bottom: 44px;">
-                <table class="chem-table">
-                    <thead>
-                        <tr>
-                            <th>Категория</th>
-                            <th>Наименование / Размер</th>
-                            <th>Сталь</th>
-                            <th>ГОСТ / ТУ</th>
-                            <th>Наличие</th>
-                            <th>Ед. изм.</th>
-                            <th>Цена с НДС</th>
-                            <th style="text-align: right;">Заказ</th>
-                        </tr>
-                    </thead>
-                    <tbody id="price-table-body">
-                        <tr>
-                            <td colspan="8" style="text-align: center; padding: 24px; color: var(--text-muted);">
-                                Загрузка актуального прайс-листа...</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
+            <div class="chem-scroll">
+    <table class="chem-table">
+        <thead>
+            <tr>
+                <th>Параметр / Свойство</th>
+                <th>Сталь 20ЮЧ</th>
+                <th>Сталь 20</th>
+                <th>Сталь 09Г2С</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Стойкость к H₂S (СКРН)</strong></td>
+                <td class="highlight-col">Высокая (до 6% H₂S)</td>
+                <td>Низкая (не допускается)</td>
+                <td>Ограниченная (требует ТО)</td>
+            </tr>
+            <tr>
+                <td><strong>Углерод (C), %</strong></td>
+                <td class="highlight-col">0,16 – 0,22</td>
+                <td>0,17 – 0,24</td>
+                <td>до 0,12</td>
+            </tr>
+            <tr>
+                <td><strong>Марганец (Mn), %</strong></td>
+                <td class="highlight-col">0,40 – 0,70</td>
+                <td>0,35 – 0,65</td>
+                <td>1,30 – 1,70</td>
+            </tr>
+            <tr>
+                <td><strong>Алюминий (Al) и Церий (Ce)</strong></td>
+                <td class="highlight-col">Al 0,03–0,08; Ce до 0,04</td>
+                <td>Не нормируется</td>
+                <td>Не нормируется</td>
+            </tr>
+            <tr>
+                <td><strong>Сера (S) и Фосфор (P), %</strong></td>
+                <td class="highlight-col">S ≤ 0,015; P ≤ 0,020</td>
+                <td>S ≤ 0,040; P ≤ 0,035</td>
+                <td>S ≤ 0,035; P ≤ 0,030</td>
+            </tr>
+            <tr>
+                <td><strong>Рабочая температура</strong></td>
+                <td class="highlight-col">−40 … +475 °C</td>
+                <td>−20 … +450 °C</td>
+                <td>−70 … +425 °C</td>
+            </tr>
+            <tr>
+                <td><strong>Свариваемость</strong></td>
+                <td class="highlight-col">Без ограничений</td>
+                <td>Без ограничений</td>
+                <td>Без ограничений</td>
+            </tr>
+            <tr>
+                <td><strong>Основное назначение</strong></td>
+                <td class="highlight-col">Газопроводы и аппараты с H₂S</td>
+                <td>Трубопроводы без агрессивных сред</td>
+                <td>Конструкции и трубы для Крайнего Севера</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
             <div class="two-col">
                 <div>
                     <div class="section-eyebrow">Частые вопросы снабженцев и инженеров</div>
@@ -444,57 +483,28 @@
         <div class="container requisites-grid">
             <div class="req-card">
                 <div class="req-header">
-                    <div>
-                        <div class="section-eyebrow">Карточка предприятия</div>
-                        <h2 class="section-title" style="font-size: 21px;">Реквизиты компании</h2>
-                    </div>
-                    <button type="button" class="btn btn-outline btn-sm" onclick="copyRequisites()">Скопировать</button>
-                </div>
+    <div>
+        <div class="section-eyebrow" style="margin-bottom: 2px;">Карточка предприятия</div>
+        <h2 style="font-size: 20px; color: var(--navy-dark);">Реквизиты компании</h2>
+    </div>
+    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <button type="button" class="btn btn-outline btn-sm" onclick="copyRequisites()">Скопировать</button>
+        <button type="button" class="btn btn-primary btn-sm" onclick="downloadRequisites()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Скачать реквизиты
+        </button>
+    </div>
+</div>
 
                 <table class="req-table">
-                    <tr>
-                        <td>Полное наименование</td>
-                        <td>Общество с ограниченной ответственностью «Симбирская промышленная индустрия»
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Сокращённое наименование</td>
-                        <td>ООО «СПИ» / ООО «Симбирская промышленная индустрия»</td>
-                    </tr>
-                    <tr>
-                        <td>Юридический адрес</td>
-                        <td>432071, Россия, г. Ульяновск, ул. Нижнеполевая, д. 11</td>
-                    </tr>
-                    <tr>
-                        <td>Почтовый адрес</td>
-                        <td>432001, Россия, г. Ульяновск, а/я 2223</td>
-                    </tr>
-                    <tr>
-                        <td>ИНН / КПП</td>
-                        <td>Уточняется по запросу в счёте / карточке партнёра</td>
-                    </tr>
-                    <tr>
-                        <td>ОГРН</td>
-                        <td>Уточняется по запросу в карточке партнёра</td>
-                    </tr>
-                    <tr>
-                        <td>Телефон отдела продаж</td>
-                        <td><a href="tel:+79041927366">+7 (904) 192-73-66</a></td>
-                    </tr>
-                    <tr>
-                        <td>Telegram</td>
-                        <td><a href="https://t.me" target="_blank" rel="noopener">t.me/+79041927366</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Электронная почта</td>
-                        <td><a href="mailto:bekmatov_ruslan@mail.ru">bekmatov_ruslan@mail.ru</a></td>
-                    </tr>
-                    <tr>
-                        <td>Режим работы</td>
-                        <td>Пн–Пт: 08:30 – 17:30 (МСК+1)</td>
-                    </tr>
-                </table>
+    <tbody id="requisites-table-body">
+        <tr><td colspan="2" style="color: var(--text-muted); padding: 16px 0;">Загрузка актуальных реквизитов...</td></tr>
+    </tbody>
+</table>
             </div>
 
             <div class="form-card" id="order-form">
