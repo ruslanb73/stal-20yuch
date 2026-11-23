@@ -324,20 +324,10 @@ async function handleOrderSubmit(e) {
         const result = await response.json();
 
         if (response.ok && result.success) {
-            if (hasFiles) {
-                const mailSubject = encodeURIComponent('Чертежи / спецификация к заявке Сталь 20ЮЧ от ' + clientName);
-                const mailBody = encodeURIComponent(`Здравствуйте!\nНаправляю прикреплённые файлы (${selectedFiles.map(f => f.name).join(', ')}) к заявке:\n\nОрганизация: ${clientName}\nТелефон: ${clientPhone}\nЗаказ:\n${clientMessage}`);
-                statusBox.innerHTML = `✓ Текст заявки отправлен! Чтобы передать прикреплённые файлы (${selectedFiles.length} шт.), нажмите <a href="mailto:bekmatov_ruslan@mail.ru?subject=${mailSubject}&body=${mailBody}" style="text-decoration:underline; color:#fff; font-weight:700;">открыть почту и прикрепить файлы</a> или отправьте их в <a href="https://t.me" target="_blank" style="text-decoration:underline; color:#fff; font-weight:700;">Telegram</a>.`;
-            } else {
-                statusBox.textContent = '✓ Заявка успешно отправлена на bekmatov_ruslan@mail.ru. Менеджер свяжется с вами в ближайшее время.';
-            }
+            statusBox.textContent = '✓ Спасибо за Ваше сообщение. Оно было отправлено.';
             statusBox.className = 'form-status success';
-            showToast('Заявка успешно отправлена');
+            showToast('Спасибо за Ваше сообщение. Оно было отправлено.');
             form.reset();
-            selectedFiles = [];
-            renderFileList();
-        } else {
-            throw new Error(result.message || 'Ошибка сервиса отправки');
         }
     } catch (err) {
         const mailSubject = encodeURIComponent('Заявка Сталь 20ЮЧ от ' + clientName);

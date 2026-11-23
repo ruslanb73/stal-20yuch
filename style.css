@@ -995,9 +995,10 @@
             background: var(--navy-hover);
         }
 
-        .sticky-btn-tg {
-            background: var(--tg-color);
-        }
+        .sticky-btn-call { background: var(--navy); }
+.sticky-btn-call:active { background: var(--navy-hover); }
+.sticky-btn-order { background: var(--steel-accent); }
+.sticky-btn-order:active { background: var(--navy); }
 
         .sticky-btn-tg:active {
             background: var(--tg-hover);
