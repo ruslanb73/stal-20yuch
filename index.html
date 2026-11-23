@@ -925,6 +925,12 @@
             const clientEmail = document.getElementById('client-email').value.trim() || 'Не указан';
             const clientMessage = document.getElementById('client-message').value.trim();
 
+            // Если прикреплены файлы — сначала отправляем уведомление о заявке, затем открываем почту для вложения файлов
+            const hasFiles = selectedFiles.length > 0;
+            const filesNote = hasFiles
+                ? `\n[Клиент выбрал файлы для отправки: ${selectedFiles.map(f => f.name).join(', ')}]`
+                : '';
+
             btn.disabled = true;
             btn.textContent = 'Отправка заявки...';
             statusBox.className = 'form-status';
@@ -937,17 +943,23 @@
             formData.append('Client_Name', clientName);
             formData.append('Phone', clientPhone);
             formData.append('Email', clientEmail);
-            formData.append('Specification', clientMessage);
+            formData.append('Specification', clientMessage + filesNote);
 
             try {
-                const response = await fetch('https://api.web3forms.com/submit', {
+                const response = await fetch('https://web3forms.com', {
                     method: 'POST',
                     body: formData
                 });
                 const result = await response.json();
 
                 if (response.ok && result.success) {
-                    statusBox.textContent = '✓ Заявка успешно отправлена на bekmatov_ruslan@mail.ru. Менеджер свяжется с вами в ближайшее время.';
+                    if (hasFiles) {
+                        const mailSubject = encodeURIComponent('Чертежи / спецификация к заявке Сталь 20ЮЧ от ' + clientName);
+                        const mailBody = encodeURIComponent(`Здравствуйте!\nНаправляю прикреплённые файлы (${selectedFiles.map(f => f.name).join(', ')}) к заявке:\n\nОрганизация: ${clientName}\nТелефон: ${clientPhone}\nЗаказ:\n${clientMessage}`);
+                        statusBox.innerHTML = `✓ Текст заявки отправлен! Чтобы передать прикреплённые файлы (${selectedFiles.length} шт.), нажмите <a href="mailto:bekmatov_ruslan@mail.ru?subject=${mailSubject}&body=${mailBody}" style="text-decoration:underline; color:#fff; font-weight:700;">открыть почту и прикрепить файлы</a> или отправьте их в <a href="https://t.me" target="_blank" style="text-decoration:underline; color:#fff; font-weight:700;">Telegram</a>.`;
+                    } else {
+                        statusBox.textContent = '✓ Заявка успешно отправлена на bekmatov_ruslan@mail.ru. Менеджер свяжется с вами в ближайшее время.';
+                    }
                     statusBox.className = 'form-status success';
                     showToast('Заявка успешно отправлена');
                     form.reset();
