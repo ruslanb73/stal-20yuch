@@ -2,14 +2,12 @@
 function toggleMobileMenu() { document.getElementById('mobile-nav').classList.toggle('open'); }
 function closeMobileMenu() { document.getElementById('mobile-nav').classList.remove('open'); }
 
-const GOOGLE_SHEET_CSV_URL = 'https://google.com';
+const GOOGLE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRHMW5QmSMXE0VIOR0Ny-gxRr3q4CEPvzLMVrgXL0TFiSppwck_vT2GrxZGwh1C5vvOcccKlQyJT2wf/pub?gid=0&single=true&output=csv';
 
 const fallbackData = [
-    { category: 'Трубы', name: 'Труба бесшовная 159×8 мм ст. 20ЮЧ', gost: 'ГОСТ 8732-78', stock: '18.4 т', price: '192 000 ₽/т' },
-    { category: 'Трубы', name: 'Труба бесшовная 219×10 мм ст. 20ЮЧ', gost: 'ГОСТ 8732-78', stock: '12.0 т', price: '195 000 ₽/т' },
-    { category: 'Отводы', name: 'Отвод крутоизогнутый 90° 159×8 ст. 20ЮЧ', gost: 'ГОСТ 17375-01', stock: '45 шт', price: '4 850 ₽/шт' },
-    { category: 'Лист', name: 'Лист горячекатаный 16×2000×6000 ст. 20ЮЧ', gost: 'ТУ 14-1-4853', stock: '24.5 т', price: '148 000 ₽/т' },
-    { category: 'Фланцы', name: 'Фланец воротниковый Ду150 Ру40 ст. 20ЮЧ', gost: 'ГОСТ 33259-15', stock: '30 шт', price: '6 200 ₽/шт' }
+    { category: 'Трубы', name: 'Труба бесшовная 159×8 мм', steel: '20ЮЧ', gost: 'ГОСТ 8732-78', stock: '18.4', unit: 'тн', price: '300 000' },
+    { category: 'Отводы', name: 'Отвод крутоизогнутый 90° 159×8', steel: '20ЮЧ', gost: 'ГОСТ 17375-01', stock: '45', unit: 'шт', price: '4 850' },
+    { category: 'Лист', name: 'Лист горячекатаный 16×2000×6000', steel: '20ЮЧ', gost: 'ТУ 14-1-4853', stock: '24.5', unit: 'тн', price: '148 000' }
 ];
 
 let allPriceRows = [];
@@ -18,55 +16,140 @@ function parseCSV(text) {
     const lines = text.trim().split(/\r?\n/);
     return lines.slice(1).map(line => {
         const cols = line.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(c => c.replace(/^"|"$/g, '').trim());
-        return { category: cols[0] || '', name: cols[1] || '', gost: cols[2] || '', stock: cols[3] || '', price: cols[4] || '' };
+        return {
+            category: cols[0] || '',
+            name: cols[1] || '',
+            steel: cols[2] || '20ЮЧ',
+            gost: cols[3] || '',
+            stock: cols[4] || '',
+            unit: cols[5] || 'шт',
+            price: cols[6] || ''
+        };
     }).filter(item => item.name);
 }
 
 async function loadPriceList() {
     try {
-        if (GOOGLE_SHEET_CSV_URL.includes('ВАШ_ID_ТАБЛИЦЫ')) {
+        if (!GOOGLE_SHEET_CSV_URL || GOOGLE_SHEET_CSV_URL.includes('ВСТАВЬТЕ_СЮДА')) {
             allPriceRows = fallbackData;
         } else {
             const response = await fetch(GOOGLE_SHEET_CSV_URL);
             const csvText = await response.text();
-            allPriceRows = parseCSV(csvText);
+            const parsed = parseCSV(csvText);
+            allPriceRows = parsed.length ? parsed : fallbackData;
         }
     } catch (err) {
         allPriceRows = fallbackData;
     }
+
     const select = document.getElementById('price-cat-filter');
-    [...new Set(allPriceRows.map(r => r.category).filter(Boolean))].forEach(cat => {
-        const opt = document.createElement('option');
-        opt.value = cat; opt.textContent = cat;
-        select.appendChild(opt);
-    });
+    if (select) {
+        select.innerHTML = '<option value="">Все категории</option>';
+        const uniqueCategories = [...new Set(allPriceRows.map(r => r.category).filter(Boolean))];
+        uniqueCategories.forEach(cat => {
+            const opt = document.createElement('option');
+            opt.value = cat;
+            opt.textContent = cat;
+            select.appendChild(opt);
+        });
+    }
+
     renderPriceRows(allPriceRows);
 }
 
 function renderPriceRows(rows) {
     const tbody = document.getElementById('price-table-body');
+    if (!tbody) return;
+
     if (!rows.length) {
-        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:20px;">По вашему запросу позиций не найдено</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:20px;">По вашему запросу позиций не найдено</td></tr>';
         return;
     }
-    tbody.innerHTML = rows.map(r => `
-                <tr>
-                    <td data-label="Категория" style="color: var(--text-muted);">${r.category}</td>
-                    <td class="cell-title" style="font-weight: 700; color: var(--navy);">${r.name}</td>
-                    <td data-label="Стандарт">${r.gost}</td>
-                    <td data-label="Наличие" style="color: var(--success); font-weight: 600;">${r.stock}</td>
-                    <td data-label="Цена с НДС" style="font-weight: 700;">${r.price}</td>
-                    <td class="cell-action" style="text-align: right;">
-                        <button class="btn btn-outline btn-sm" onclick="selectProduct('${r.name.replace(/'/g, "\\'")}')">В заявку</button>
-                    </td>
-                </tr>
-            `).join('');
+
+    tbody.innerHTML = rows.map(r => {
+        const fullTitle = `${r.name} (ст. ${r.steel})`;
+        const formattedPrice = r.price && r.price !== '—'
+            ? `${r.price} ₽/${r.unit}`
+            : 'По запросу';
+        return `
+        <tr>
+            <td data-label="Категория" style="color: var(--text-muted);">${r.category}</td>
+            <td class="cell-title" style="font-weight: 700; color: var(--navy);">${r.name}</td>
+            <td data-label="Сталь" style="font-weight: 600;">${r.steel}</td>
+            <td data-label="ГОСТ / ТУ">${r.gost}</td>
+            <td data-label="Наличие" style="color: var(--success); font-weight: 600;">${r.stock}</td>
+            <td data-label="Ед. изм.">${r.unit}</td>
+            <td data-label="Цена с НДС (шт / тн)" style="font-weight: 700;">${formattedPrice}</td>
+            <td class="cell-action" style="text-align: right;">
+                <button class="btn btn-outline btn-sm" onclick="selectProduct('${fullTitle.replace(/'/g, "\\'")}', '${r.unit}')">В заявку</button>
+            </td>
+        </tr>
+    `}).join('');
 }
 
 function filterPriceTable() {
-    const q = document.getElementById('price-search').value.toLowerCase();
-    const cat = document.getElementById('price-cat-filter').value;
-    renderPriceRows(allPriceRows.filter(r => (!cat || r.category === cat) && (!q || [r.name, r.gost, r.category].join(' ').toLowerCase().includes(q))));
+    const searchInput = document.getElementById('price-search');
+    const catSelect = document.getElementById('price-cat-filter');
+
+    const q = searchInput ? searchInput.value.toLowerCase().trim() : '';
+    const cat = catSelect ? catSelect.value : '';
+
+    const filtered = allPriceRows.filter(r => {
+        const matchCat = !cat || r.category === cat;
+        const searchableText = [r.name, r.steel, r.gost, r.category].join(' ').toLowerCase();
+        const matchQuery = !q || searchableText.includes(q);
+        return matchCat && matchQuery;
+    });
+
+    renderPriceRows(filtered);
+}
+
+function selectProduct(name, unit = 'шт') {
+    const msgBox = document.getElementById('client-message');
+    const line = `Запрос стоимости: ${name}, количество (${unit}): `;
+    msgBox.value = msgBox.value ? msgBox.value + '\n' + line : line;
+    document.getElementById('order-form').scrollIntoView({ behavior: 'smooth' });
+    msgBox.focus();
+}
+
+// Запуск загрузки при открытии страницы
+async function initPriceTable() {
+    if (!CSV_URL || CSV_URL === 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRHMW5QmSMXE0VIOR0Ny-gxRr3q4CEPvzLMVrgXL0TFiSppwck_vT2GrxZGwh1C5vvOcccKlQyJT2wf/pub?gid=0&single=true&output=csv') {
+        allPriceRows = fallbackData;
+        renderPriceRows(allPriceRows);
+        return;
+    }
+
+    try {
+        const response = await fetch(CSV_URL);
+        if (!response.ok) throw new Error('Ошибка сети');
+        const text = await response.text();
+        const parsed = parseCSV(text);
+        allPriceRows = parsed.length ? parsed : fallbackData;
+    } catch (e) {
+        console.warn('Не удалось загрузить CSV, показаны резервные данные:', e);
+        allPriceRows = fallbackData;
+    }
+    renderPriceRows(allPriceRows);
+}
+
+document.addEventListener('DOMContentLoaded', initPriceTable);
+
+function filterPriceTable() {
+    const searchInput = document.getElementById('price-search');
+    const catSelect = document.getElementById('price-cat-filter');
+    
+    const q = searchInput ? searchInput.value.toLowerCase().trim() : '';
+    const cat = catSelect ? catSelect.value : '';
+
+    const filtered = allPriceRows.filter(r => {
+        const matchCat = !cat || r.category === cat;
+        const searchableText = [r.name, r.steel, r.gost, r.category].join(' ').toLowerCase();
+        const matchQuery = !q || searchableText.includes(q);
+        return matchCat && matchQuery;
+    });
+
+    renderPriceRows(filtered);
 }
 const DENSITY = 7850;
 let currentTab = 'pipe';
@@ -237,14 +320,6 @@ function transferCalcToOrder() {
     msgBox.value = msgBox.value ? msgBox.value + '\n' + lastCalcSummary : lastCalcSummary;
     document.getElementById('order-form').scrollIntoView({ behavior: 'smooth' });
     showToast('Параметры расчёта добавлены в форму заявки');
-}
-
-function selectProduct(name) {
-    const msgBox = document.getElementById('client-message');
-    const line = `Запрос стоимости: ${name}, количество: `;
-    msgBox.value = msgBox.value ? msgBox.value + '\n' + line : line;
-    document.getElementById('order-form').scrollIntoView({ behavior: 'smooth' });
-    msgBox.focus();
 }
 
 function copyRequisites() {

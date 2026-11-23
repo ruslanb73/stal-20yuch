@@ -239,32 +239,29 @@
             </div>
 
             <div class="filter-bar">
-                <input type="text" id="price-search" class="form-control" style="flex: 1; min-width: 220px;"
-                    placeholder="Поиск по размеру или ГОСТ (например: 159х8)..." oninput="filterPriceTable()">
-                <select id="price-cat-filter" class="form-control" style="min-width: 190px; flex: 0 1 240px;"
-                    onchange="filterPriceTable()">
-                    <option value="">Все категории</option>
-                </select>
-            </div>
+    <input type="text" id="price-search" class="form-control" style="flex: 1; min-width: 220px;" placeholder="Поиск по размеру, стали или ГОСТ (например: 159х8)..." oninput="filterPriceTable()">
+    <select id="price-cat-filter" class="form-control" style="min-width: 190px; flex: 0 1 240px;" onchange="filterPriceTable()">
+        <option value="">Все категории</option>
+    </select>
+</div>
 
             <div class="table-wrap">
                 <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>Категория</th>
-                            <th>Наименование / Размер</th>
-                            <th>ГОСТ / ТУ</th>
-                            <th>Наличие</th>
-                            <th>Цена с НДС</th>
-                            <th style="text-align: right;">Заказ</th>
-                        </tr>
-                    </thead>
-                    <tbody id="price-table-body">
-                        <tr>
-                            <td colspan="6" style="text-align: center; padding: 24px; color: var(--text-muted);">
-                                Загрузка актуального прайс-листа...</td>
-                        </tr>
-                    </tbody>
+ <thead>
+    <tr>
+        <th>Категория</th>
+        <th>Наименование / Размер</th>
+        <th>Марка стали</th>
+        <th>ГОСТ / ТУ</th>
+        <th>Наличие</th>
+        <th>Ед. изм.</th>
+        <th>Цена с НДС</th>
+        <th style="text-align: right;">Заказ</th>
+    </tr>
+</thead>
+<tbody id="price-table-body">
+    <tr><td colspan="8" style="text-align:center; padding:20px;">Загрузка актуального прайс-листа...</td></tr>
+</tbody>
                 </table>
             </div>
         </div>
@@ -326,58 +323,20 @@
             <div class="chem-scroll" style="margin-bottom: 44px;">
                 <table class="chem-table">
                     <thead>
-                        <tr>
-                            <th style="width: 28%;">Параметр / Свойство</th>
-                            <th style="width: 26%; background: var(--steel-accent);">Сталь 20ЮЧ (ТУ
-                                14-1-4853)</th>
-                            <th style="width: 23%;">Сталь 20 (ГОСТ 1050)</th>
-                            <th style="width: 23%;">Сталь 09Г2С (ГОСТ 19281)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Стойкость к H₂S и СКРН</strong> (сероводородное растрескивание)
-                            </td>
-                            <td class="highlight-col">Высокая (испытывается на стойкость к СКРН и
-                                водородному охрупчиванию)</td>
-                            <td>Низкая (не предназначена для агрессивных сероводородных сред)</td>
-                            <td>Ограниченная (требует специальной термообработки и контроля твёрдости)
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>Рабочая температура</strong></td>
-                            <td class="highlight-col">От −40 °C до +475 °C</td>
-                            <td>От −20 °C до +450 °C</td>
-                            <td>От −70 °C до +425 °C</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Раскисление и модифицирование</strong></td>
-                            <td class="highlight-col">Алюминий («Ю») + церий/кальций («Ч») для
-                                глобуляризации включений</td>
-                            <td>Спокойная углеродистая сталь без спецмодифицирования</td>
-                            <td>Низколегированная марганцем и кремнием сталь</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Содержание серы (S) и фосфора (P)</strong></td>
-                            <td class="highlight-col">Особо чистое: S ≤ 0,015%, P ≤ 0,020%</td>
-                            <td>S ≤ 0,040%, P ≤ 0,035%</td>
-                            <td>S ≤ 0,035%, P ≤ 0,030%</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Свариваемость</strong></td>
-                            <td class="highlight-col">Без ограничений, минимальный риск холодных трещин
-                            </td>
-                            <td>Без ограничений</td>
-                            <td>Без ограничений</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Основное назначение</strong></td>
-                            <td class="highlight-col">Нефтегазопроводы с примесью H₂S, сепараторы,
-                                теплообменники, ГПЗ</td>
-                            <td>Водо- и паропроводы, общепромышленные трубопроводы</td>
-                            <td>Северные магистральные трубопроводы, несущие металлоконструкции</td>
-                        </tr>
-                    </tbody>
+    <tr>
+        <th>Категория</th>
+        <th>Наименование / Размер</th>
+        <th>Сталь</th>
+        <th>ГОСТ / ТУ</th>
+        <th>Наличие</th>
+        <th>Ед. изм.</th>
+        <th>Цена с НДС</th>
+        <th style="text-align: right;">Заказ</th>
+    </tr>
+</thead>
+<tbody id="price-table-body">
+    <tr><td colspan="8" style="text-align: center; padding: 24px; color: var(--text-muted);">Загрузка актуального прайс-листа...</td></tr>
+</tbody>
                 </table>
             </div>
 
