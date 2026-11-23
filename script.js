@@ -319,7 +319,7 @@ document.addEventListener('DOMContentLoaded', initPriceTable);
 function filterPriceTable() {
     const searchInput = document.getElementById('price-search');
     const catSelect = document.getElementById('price-cat-filter');
-    
+
     const q = searchInput ? searchInput.value.toLowerCase().trim() : '';
     const cat = catSelect ? catSelect.value : '';
 
