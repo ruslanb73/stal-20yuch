@@ -932,12 +932,12 @@
 
             const formData = new FormData();
             formData.append('access_key', WEB3FORMS_ACCESS_KEY);
-            formData.append('subject', 'Новая заявка с сайта Сталь 20ЮЧ');
+            formData.append('subject', 'Заявка с сайта Сталь 20ЮЧ от ' + clientName);
             formData.append('from_name', 'Сайт Сталь 20ЮЧ');
-            formData.append('Имя и организация', clientName);
-            formData.append('Телефон', clientPhone);
+            formData.append('Client_Name', clientName);
+            formData.append('Phone', clientPhone);
             formData.append('Email', clientEmail);
-            formData.append('Спецификация', clientMessage);
+            formData.append('Specification', clientMessage);
 
             try {
                 const response = await fetch('https://api.web3forms.com/submit', {
