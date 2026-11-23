@@ -57,7 +57,33 @@ async function loadPriceList() {
     renderPriceRows(allPriceRows);
 }
 
+function normalizeQtyInput(input, unit) {
+    let val = parseFloat(input.value);
+    if (isNaN(val) || val <= 0) {
+        input.value = 1;
+        return;
+    }
+    if (unit !== 'тн') {
+        input.value = Math.max(1, Math.round(val));
+    }
+}
+
+let currentFilteredRows = [];
+let specCart = [];
+
+function normalizeQtyInput(input, unit) {
+    let val = parseFloat(input.value);
+    if (isNaN(val) || val <= 0) {
+        input.value = 1;
+        return;
+    }
+    if (unit !== 'тн') {
+        input.value = Math.max(1, Math.round(val));
+    }
+}
+
 function renderPriceRows(rows) {
+    currentFilteredRows = rows;
     const tbody = document.getElementById('price-table-body');
     if (!tbody) return;
 
@@ -66,11 +92,15 @@ function renderPriceRows(rows) {
         return;
     }
 
-    tbody.innerHTML = rows.map(r => {
-        const fullTitle = `${r.name} (ст. ${r.steel})`;
+    tbody.innerHTML = rows.map((r, idx) => {
+        const unitNorm = String(r.unit || 'шт').trim().toLowerCase();
         const formattedPrice = r.price && r.price !== '—'
             ? `${r.price} ₽/${r.unit}`
             : 'По запросу';
+        const isTon = unitNorm === 'тн';
+        const stepVal = isTon ? '0.1' : '1';
+        const minVal = isTon ? '0.1' : '1';
+
         return `
         <tr>
             <td data-label="Категория" style="color: var(--text-muted);">${r.category}</td>
@@ -81,11 +111,15 @@ function renderPriceRows(rows) {
             <td data-label="Ед. изм.">${r.unit}</td>
             <td data-label="Цена с НДС (шт / тн)" style="font-weight: 700;">${formattedPrice}</td>
             <td class="cell-action" style="text-align: right;">
-                <button class="btn btn-outline btn-sm" onclick="selectProduct('${fullTitle.replace(/'/g, "\\'")}', '${r.unit}')">В заявку</button>
+                <div class="qty-order-group">
+                    <input type="number" id="qty-row-${idx}" class="qty-input" value="1" min="${minVal}" step="${stepVal}" onchange="normalizeQtyInput(this, '${unitNorm}')" aria-label="Количество">
+                    <button type="button" class="btn btn-outline btn-sm" onclick="addRowToCart(${idx})">+ В список</button>
+                </div>
             </td>
         </tr>
     `}).join('');
 }
+
 
 function filterPriceTable() {
     const searchInput = document.getElementById('price-search');
@@ -104,6 +138,153 @@ function filterPriceTable() {
     renderPriceRows(filtered);
 }
 
+function addRowToCart(idx) {
+    const item = currentFilteredRows[idx];
+    if (!item) return;
+
+    const unitNorm = String(item.unit || 'шт').trim().toLowerCase();
+    const isTon = unitNorm === 'тн';
+    const qtyInput = document.getElementById(`qty-row-${idx}`);
+    let qty = parseFloat(qtyInput ? qtyInput.value : 1);
+
+    if (isNaN(qty) || qty <= 0) {
+        showToast('Укажите корректное количество');
+        return;
+    }
+
+    if (!isTon) {
+        qty = Math.max(1, Math.round(qty));
+        if (qtyInput) qtyInput.value = qty;
+    }
+
+    const numericPrice = parseFloat(String(item.price).replace(/\s+/g, '').replace(',', '.')) || 0;
+    const key = `${item.name}|${item.steel}|${item.gost}|${item.unit}`;
+
+    const existing = specCart.find(c => c.key === key);
+    if (existing) {
+        const sum = existing.qty + qty;
+        existing.qty = isTon ? Math.round(sum * 1000) / 1000 : Math.round(sum);
+    } else {
+        specCart.push({
+            key: key,
+            name: item.name,
+            steel: item.steel,
+            gost: item.gost,
+            unit: item.unit,
+            priceStr: item.price,
+            numericPrice: numericPrice,
+            qty: qty
+        });
+    }
+
+    renderSpecCart();
+    showToast(`Добавлено: ${item.name} — ${qty} ${item.unit}`);
+}
+
+function formatSpecCartText() {
+    if (!specCart.length) return '';
+
+    const lines = specCart.map((item, idx) => {
+        const sumPart = item.numericPrice > 0
+            ? ` (по ${item.priceStr} ₽/${item.unit})`
+            : '';
+        return `${idx + 1}) ${item.name}, ст. ${item.steel}, ${item.gost} — ${item.qty} ${item.unit}${sumPart}`;
+    });
+
+    return 'Спецификация из прайс-листа:\n' + lines.join('\n');
+}
+
+function syncCartWithOrderForm(onlyIfAlreadyInForm = false) {
+    const msgBox = document.getElementById('client-message');
+    if (!msgBox) return;
+
+    const currentText = msgBox.value;
+    const specBlockRegex = /Спецификация из прайс-листа:\n[\s\S]*?(?=\n\n|$)/;
+    const hasSpecInForm = specBlockRegex.test(currentText);
+
+    if (onlyIfAlreadyInForm && !hasSpecInForm) return;
+
+    const newSpecText = formatSpecCartText();
+
+    if (hasSpecInForm) {
+        msgBox.value = currentText
+            .replace(specBlockRegex, newSpecText)
+            .replace(/\n{3,}/g, '\n\n')
+            .trim();
+    } else if (newSpecText) {
+        msgBox.value = currentText ? currentText + '\n\n' + newSpecText : newSpecText;
+    }
+}
+
+function removeFromSpecCart(idx) {
+    specCart.splice(idx, 1);
+    renderSpecCart();
+    syncCartWithOrderForm(true);
+}
+
+function clearSpecCart() {
+    specCart = [];
+    renderSpecCart();
+    syncCartWithOrderForm(true);
+}
+
+function sendCartToOrderForm() {
+    if (!specCart.length) return;
+    syncCartWithOrderForm(false);
+    document.getElementById('order-form').scrollIntoView({ behavior: 'smooth' });
+    showToast('Весь список перенесён в форму заявки');
+}
+
+function renderSpecCart() {
+    const box = document.getElementById('spec-cart-box');
+    const itemsContainer = document.getElementById('spec-cart-items');
+    const countEl = document.getElementById('spec-cart-count');
+    const totalEl = document.getElementById('spec-cart-total');
+
+    if (!box) return;
+
+    if (!specCart.length) {
+        box.style.display = 'none';
+        return;
+    }
+
+    box.style.display = 'block';
+    countEl.textContent = specCart.length;
+
+    let grandTotal = 0;
+    let hasUnknownPrice = false;
+
+    itemsContainer.innerHTML = specCart.map((item, idx) => {
+        const rowSum = item.numericPrice * item.qty;
+        if (item.numericPrice > 0) {
+            grandTotal += rowSum;
+        } else {
+            hasUnknownPrice = true;
+        }
+
+        const priceInfo = item.numericPrice > 0
+            ? `${item.priceStr} ₽/${item.unit} = ${rowSum.toLocaleString('ru-RU', { maximumFractionDigits: 2 })} ₽`
+            : 'цена по запросу';
+
+        return `
+            <div class="spec-cart-row">
+                <div>
+                    <div class="spec-cart-row-info">${idx + 1}. ${item.name} (ст. ${item.steel}, ${item.gost})</div>
+                    <div class="spec-cart-row-meta">Количество: <strong>${item.qty} ${item.unit}</strong> · ${priceInfo}</div>
+                </div>
+                <button type="button" class="spec-cart-remove" title="Удалить позицию" onclick="removeFromSpecCart(${idx})">×</button>
+            </div>
+        `;
+    }).join('');
+
+    if (grandTotal > 0) {
+        totalEl.textContent = `Предварительная сумма с НДС: ${grandTotal.toLocaleString('ru-RU', { maximumFractionDigits: 2 })} ₽` + (hasUnknownPrice ? ' (+ позиции по запросу)' : '');
+    } else {
+        totalEl.textContent = 'Расчёт стоимости по запросу';
+    }
+}
+
+// Оставляем для кнопок «Запросить →» из верхнего каталога карточек
 function selectProduct(name, unit = 'шт') {
     const msgBox = document.getElementById('client-message');
     const line = `Запрос стоимости: ${name}, количество (${unit}): `;

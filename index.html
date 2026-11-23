@@ -260,11 +260,24 @@
     </tr>
 </thead>
 <tbody id="price-table-body">
-    <tr><td colspan="8" style="text-align:center; padding:20px;">Загрузка актуального прайс-листа...</td></tr>
-</tbody>
-                </table>
-            </div>
+            <tr><td colspan="8" style="text-align: center; padding: 24px; color: var(--text-muted);">Загрузка актуального прайс-листа...</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<div id="spec-cart-box" class="spec-cart-box" style="display: none;">
+    <div class="spec-cart-header">
+        <div>
+            <span class="spec-cart-title">Собранная спецификация (<span id="spec-cart-count">0</span> поз.)</span>
+            <span class="spec-cart-sub" id="spec-cart-total"></span>
         </div>
+        <button type="button" class="btn btn-outline btn-sm" onclick="clearSpecCart()">Очистить</button>
+    </div>
+    <div id="spec-cart-items" class="spec-cart-items"></div>
+    <div class="spec-cart-footer">
+        <button type="button" class="btn btn-primary" onclick="sendCartToOrderForm()">Перенести весь список в заявку →</button>
+    </div>
+</div>
     </section>
     <section id="calculator" class="section">
         <div class="container">
