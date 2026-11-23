@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="format-detection" content="telephone=no">
+    <title>Сталь 20ЮЧ — Детали трубопровода и металлопрокат | ООО «Симбирская промышленная индустрия»</title>
+    <meta name="description" content="Комплексные поставки труб, отводов, переходов, фланцев, днищ, обечаек и проката из стали 20ЮЧ для газовой и нефтехимической промышленности.">
+    <style>
+        :root {
+            --bg-main: #FFFFFF;
+            --bg-alt: #F4F7FA;
+            --bg-card: #FFFFFF;
+            --navy-dark: #0A1D30;
+            --navy: #0F2942;
+            --navy-hover: #173C5E;
+            --steel: #466685;
+            --steel-light: #D9E2EC;
+            --steel-accent: #2B6CB0;
+            --tg-color: #24A1DE;
+            --tg-hover: #1D8CC2;
+            --text-primary: #102A43;
+            --text-secondary: #486581;
+            --text-muted: #627D98;
+            --border: #D9E2EC;
+            --success: #1E7E48;
+            --shadow-sm: 0 2px 8px rgba(15, 41, 66, 0.05);
+            --shadow-md: 0 8px 24px rgba(15, 41, 66, 0.08);
+            --radius: 6px;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        html { scroll-behavior: smooth; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; color: var(--text-primary); background-color: var(--bg-main); line-height: 1.55; overflow-x: hidden; }
+        body { overflow-x: hidden; }
+        a { color: inherit; text-decoration: none; }
+        .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .topbar { background: var(--navy-dark); color: #BCCCDC; font-size: 13px; padding: 8px 0; }
+        .topbar-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+        .header { position: sticky; top: 0; z-index: 100; background: rgba(255, 255, 255, 0.98); border-bottom: 1px solid var(--border); backdrop-filter: blur(8px); }
+        .header-inner { display: flex; align-items: center; justify-content: space-between; height: 70px; gap: 12px; }
+        .brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
+        .brand-badge { background: var(--navy); color: #FFFFFF; font-weight: 800; font-size: 17px; padding: 7px 11px; border-radius: 4px; border-left: 4px solid var(--steel-accent); flex-shrink: 0; }
+        .brand-text { display: flex; flex-direction: column; min-width: 0; }
+        .brand-title { font-weight: 700; font-size: 15px; color: var(--navy); line-height: 1.2; white-space: nowrap; }
+        .brand-sub { font-size: 11.5px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .nav { display: flex; gap: 18px; font-size: 14px; font-weight: 500; color: var(--navy); }
+        .nav a:hover { color: var(--steel-accent); }
+        .header-contacts { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+        .header-phone { font-weight: 700; font-size: 15px; color: var(--navy); white-space: nowrap; }
+
+        .burger-btn { display: none; background: var(--bg-alt); border: 1px solid var(--border); border-radius: 4px; width: 42px; height: 42px; align-items: center; justify-content: center; cursor: pointer; color: var(--navy); flex-shrink: 0; }
+        .mobile-nav { display: none; background: #FFFFFF; border-bottom: 1px solid var(--border); padding: 16px 20px 22px; flex-direction: column; gap: 12px; box-shadow: var(--shadow-md); }
+        .mobile-nav.open { display: flex; }
+        .mobile-nav a { font-size: 16px; font-weight: 600; color: var(--navy); padding: 8px 0; border-bottom: 1px solid var(--bg-alt); }
+        .mobile-nav-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 6px; }
+
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 10px 20px; font-size: 14px; font-weight: 600; border-radius: var(--radius); border: 1px solid transparent; cursor: pointer; transition: all 0.2s ease; text-align: center; }
+        .btn-primary { background: var(--navy); color: #FFFFFF; }
+        .btn-primary:hover { background: var(--navy-hover); }
+        .btn-outline { background: #FFFFFF; color: var(--navy); border-color: var(--steel); }
+        .btn-outline:hover { background: var(--bg-alt); }
+        .btn-sm { min-height: 38px; padding: 7px 14px; font-size: 13px; }
+        .btn-light { width: 100%; background: #FFFFFF; color: var(--navy-dark); font-weight: 700; }
+        .btn-light:hover:not(:disabled) { background: #F0F4F8; }
+        .btn-light:disabled { opacity: 0.65; cursor: not-allowed; }
+
+        .hero { background: linear-gradient(135deg, #F8FAFC 0%, #EBF1F6 100%); border-bottom: 1px solid var(--border); padding: 48px 0 44px; }
+        .hero-grid { display: grid; grid-template-columns: 1.35fr 0.65fr; gap: 32px; align-items: center; }
+        .tag-pill { display: inline-flex; align-items: center; gap: 8px; background: #FFFFFF; border: 1px solid var(--steel-light); color: var(--steel); font-size: 12.5px; font-weight: 600; padding: 6px 12px; border-radius: 20px; margin-bottom: 16px; }
+        .tag-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--steel-accent); flex-shrink: 0; }
+        .hero h1 { font-size: 36px; line-height: 1.2; color: var(--navy-dark); font-weight: 800; margin-bottom: 16px; }
+        .hero-desc { font-size: 16px; color: var(--text-secondary); margin-bottom: 24px; max-width: 640px; }
+        .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+        .hero-spec-box { background: var(--navy); color: #FFFFFF; padding: 24px; border-radius: var(--radius); box-shadow: var(--shadow-md); border-top: 4px solid var(--steel-accent); }
+        .hero-spec-box h3 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.8px; color: #9FB3C8; margin-bottom: 14px; }
+        .spec-list { list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 13.5px; }
+        .spec-list li { display: flex; justify-content: space-between; gap: 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.12); padding-bottom: 8px; }
+        .spec-list li:last-child { border-bottom: none; padding-bottom: 0; }
+        .spec-val { font-weight: 700; color: #FFFFFF; text-align: right; }
+
+        .metrics { background: #FFFFFF; border-bottom: 1px solid var(--border); padding: 24px 0; }
+        .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .metric-item { border-left: 3px solid var(--steel); padding-left: 14px; }
+        .metric-num { font-size: 22px; font-weight: 800; color: var(--navy); line-height: 1.2; }
+        .metric-label { font-size: 12.5px; color: var(--text-secondary); margin-top: 4px; }
+
+        .section { padding: 56px 0; }
+        .section-alt { background: var(--bg-alt); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+        .section-header { margin-bottom: 28px; }
+        .section-eyebrow { font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--steel); margin-bottom: 6px; }
+        .section-title { font-size: 26px; font-weight: 800; color: var(--navy-dark); line-height: 1.25; }
+        .section-subtitle { color: var(--text-secondary); margin-top: 8px; max-width: 720px; font-size: 15px; }
+
+        .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(265px, 1fr)); gap: 16px; }
+        .product-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; display: flex; flex-direction: column; justify-content: space-between; }
+        .product-card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 10px; }
+        .product-title { font-size: 16.5px; font-weight: 700; color: var(--navy); }
+        .product-gost { font-size: 11px; font-weight: 600; background: var(--bg-alt); color: var(--steel); padding: 3px 8px; border-radius: 4px; border: 1px solid var(--steel-light); white-space: nowrap; }
+        .product-desc { font-size: 13.5px; color: var(--text-secondary); margin-bottom: 16px; }
+        .product-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid var(--bg-alt); }
+        .stock-badge { font-size: 12px; font-weight: 600; color: var(--success); }
+        .card-link { font-size: 13.5px; font-weight: 700; color: var(--navy); cursor: pointer; background: none; border: none; padding: 6px 0; }
+        .filter-bar { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
+        .table-wrap { border: 1px solid var(--border); border-radius: var(--radius); background: #FFFFFF; box-shadow: var(--shadow-sm); overflow: hidden; }
+        .data-table { width: 100%; border-collapse: collapse; font-size: 14px; text-align: left; }
+        .data-table th { background: var(--navy); color: #FFFFFF; font-weight: 600; padding: 12px 16px; }
+        .data-table td { padding: 12px 16px; border-bottom: 1px solid var(--bg-alt); }
+
+        .calc-wrapper { background: #FFFFFF; border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-md); overflow: hidden; }
+        .calc-tabs { display: flex; overflow-x: auto; -webkit-overflow-scrolling: touch; background: var(--navy); border-bottom: 1px solid var(--border); scrollbar-width: none; }
+        .calc-tabs::-webkit-scrollbar { display: none; }
+        .calc-tab { background: transparent; color: #BCCCDC; border: none; padding: 14px 18px; font-size: 14px; font-weight: 600; cursor: pointer; border-bottom: 3px solid transparent; white-space: nowrap; flex-shrink: 0; }
+        .calc-tab.active { color: #FFFFFF; background: var(--navy-hover); border-bottom-color: #63B3ED; }
+        .calc-body { display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 28px; padding: 28px; }
+        .calc-preset-box { grid-column: 1 / -1; background: var(--bg-alt); padding: 14px; border-radius: var(--radius); border: 1px solid var(--steel-light); }
+        .calc-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; }
+        .form-group label { font-size: 13px; font-weight: 600; color: var(--navy); }
+        .form-control { min-height: 44px; padding: 10px 12px; border: 1px solid #BCCCDC; border-radius: 4px; font-size: 16px; color: var(--navy-dark); background: #FFFFFF; width: 100%; }
+        .form-control:focus { outline: none; border-color: var(--navy); }
+        .calc-result-panel { background: var(--bg-alt); border: 1px solid var(--steel-light); border-radius: var(--radius); padding: 20px; display: flex; flex-direction: column; justify-content: space-between; gap: 16px; }
+        .calc-result-label { font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--text-muted); }
+        .calc-result-value { font-size: 30px; font-weight: 800; color: var(--navy-dark); line-height: 1.2; }
+        .calc-result-sub { font-size: 14px; color: var(--steel); font-weight: 600; margin-top: 4px; }
+
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+        .chem-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--border); border-radius: var(--radius); background: #FFFFFF; }
+        .chem-table { width: 100%; min-width: 520px; border-collapse: collapse; font-size: 13.5px; background: #FFFFFF; }
+        .chem-table th, .chem-table td { border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); padding: 11px 14px; text-align: left; }
+        .chem-table th:last-child, .chem-table td:last-child { border-right: none; }
+        .chem-table tr:last-child td { border-bottom: none; }
+        .chem-table th { background: var(--navy); color: #FFFFFF; font-weight: 600; }
+        .chem-table td.highlight-col { background: #F0F7FF; font-weight: 700; color: var(--navy-dark); }
+
+        .faq-list { display: flex; flex-direction: column; gap: 12px; }
+        .faq-item { background: #FFFFFF; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+        .faq-item summary { list-style: none; padding: 16px 20px; font-weight: 700; font-size: 15px; color: var(--navy); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+        .faq-item summary::-webkit-details-marker { display: none; }
+        .faq-item summary::after { content: "+"; font-size: 20px; font-weight: 400; color: var(--steel-accent); flex-shrink: 0; }
+        .faq-item[open] summary::after { content: "−"; }
+        .faq-item[open] summary { border-bottom: 1px solid var(--bg-alt); background: #FAFBFD; }
+        .faq-answer { padding: 16px 20px; font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+
+        .steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+        .step-card { background: #FFFFFF; border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
+        .step-num { font-size: 26px; font-weight: 800; color: var(--steel-light); line-height: 1; margin-bottom: 8px; }
+        .step-title { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+        .step-desc { font-size: 13.5px; color: var(--text-secondary); }
+
+        .requisites-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 28px; }
+        .req-card { background: #FFFFFF; border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow-sm); }
+        .req-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+        .req-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        .req-table tr { border-bottom: 1px solid var(--bg-alt); }
+        .req-table tr:last-child { border-bottom: none; }
+        .req-table td { padding: 10px 4px; vertical-align: top; }
+        .req-table td:first-child { color: var(--text-muted); width: 42%; font-weight: 500; }
+        .req-table td:last-child { color: var(--navy-dark); font-weight: 600; word-break: break-word; }
+        .form-card { background: var(--navy); color: #FFFFFF; border-radius: var(--radius); padding: 24px; }
+        .form-card h3 { font-size: 21px; margin-bottom: 8px; }
+        .form-card p { font-size: 14px; color: #BCCCDC; margin-bottom: 18px; }
+        .dark-input { width: 100%; min-height: 44px; padding: 10px 14px; border-radius: 4px; border: 1px solid #334E68; background: #102A43; color: #FFFFFF; font-size: 16px; margin-bottom: 12px; font-family: inherit; }
+        .dark-input::placeholder { color: #829AB1; }
+        .dark-input:focus { outline: none; border-color: #63B3ED; }
+
+        .file-upload-box { border: 1.5px dashed #486581; background: rgba(16, 42, 67, 0.7); border-radius: 4px; padding: 12px 14px; margin-bottom: 12px; cursor: pointer; transition: border-color 0.2s, background 0.2s; display: flex; flex-direction: column; gap: 4px; }
+        .file-upload-box:hover { border-color: #63B3ED; background: rgba(23, 60, 94, 0.6); }
+        .file-upload-title { font-size: 13.5px; font-weight: 600; color: #E6F0FA; display: flex; align-items: center; gap: 8px; }
+        .file-upload-hint { font-size: 11.5px; color: #829AB1; }
+        .file-list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+        .file-chip { display: flex; justify-content: space-between; align-items: center; background: #173C5E; border: 1px solid #334E68; padding: 6px 10px; border-radius: 4px; font-size: 12.5px; color: #FFFFFF; gap: 8px; }
+        .file-chip span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .file-remove { background: none; border: none; color: #FEB2B2; font-weight: 700; cursor: pointer; font-size: 15px; padding: 0 4px; }
+
+        .checkbox-row { display: flex; align-items: flex-start; gap: 10px; font-size: 12.5px; color: #9FB3C8; margin-bottom: 18px; }
+        .form-status { margin-top: 12px; font-size: 13.5px; padding: 10px 12px; border-radius: 4px; display: none; }
+        .form-status.success { display: block; background: rgba(72, 187, 120, 0.18); border: 1px solid #48BB78; color: #C6F6D5; }
+        .form-status.error { display: block; background: rgba(245, 101, 101, 0.18); border: 1px solid #F56565; color: #FED7D7; }
+
+        .footer { background: var(--navy-dark); color: #9FB3C8; padding: 36px 0 24px; font-size: 13.5px; }
+        .footer-inner { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 24px; padding-bottom: 24px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .footer-bottom { padding-top: 18px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; font-size: 12px; color: #627D98; }
+
+        .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--navy-dark); color: #FFFFFF; padding: 12px 18px; border-radius: var(--radius); border-left: 4px solid #48BB78; box-shadow: var(--shadow-md); font-size: 14px; opacity: 0; pointer-events: none; transition: opacity 0.25s ease; z-index: 1001; width: max-content; max-width: calc(100vw - 32px); }
+        .toast.show { opacity: 1; }
+
+        .mobile-sticky-bar { display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 990; background: rgba(255, 255, 255, 0.98); border-top: 1px solid var(--border); box-shadow: 0 -4px 16px rgba(10, 29, 48, 0.12); padding: 8px 12px calc(8px + env(safe-area-inset-bottom)); gap: 10px; }
+        .sticky-btn { flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; border-radius: var(--radius); font-size: 14px; font-weight: 700; color: #FFFFFF; transition: background 0.15s ease; }
+        .sticky-btn-call { background: var(--navy); }
+        .sticky-btn-call:active { background: var(--navy-hover); }
+        .sticky-btn-tg { background: var(--tg-color); }
+        .sticky-btn-tg:active { background: var(--tg-hover); }
+
+        @media (max-width: 960px) {
+            .nav, .header-cta-desktop { display: none; }
+            .burger-btn { display: inline-flex; }
+            .hero-grid, .calc-body, .two-col, .requisites-grid { grid-template-columns: 1fr; }
+.metrics-grid, .steps-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+.mobile-sticky-bar { display: flex; }
+.footer { padding-bottom: 84px; }
+.toast { bottom: 76px; }
+}
+@media (max-width: 640px) {
+.container { padding: 0 16px; }
+.topbar { font-size: 12px; }
+.brand-sub { display: none; }
+.header-phone { font-size: 14px; }
+.hero { padding: 32px 0 36px; }
+.hero h1 { font-size: 26px; }
+.hero-desc { font-size: 15px; }
+.hero-actions .btn { width: 100%; }
+.section { padding: 42px 0; }
+.section-title { font-size: 22px; }
+.calc-body { padding: 18px; gap: 20px; }
+.calc-inputs { grid-template-columns: 1fr; }
+.metrics-grid, .steps-grid { grid-template-columns: 1fr; gap: 14px; }
+.table-wrap { background: transparent; border: none; box-shadow: none; }
+.data-table, .data-table tbody, .data-table tr, .data-table td { display: block; width: 100%; }
+.data-table thead { display: none; }
+.data-table tr { background: #FFFFFF; border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; margin-bottom: 12px; box-shadow: var(--shadow-sm); }
+.data-table td { padding: 4px 0; border: none; display: flex; justify-content: space-between; align-items: center; gap: 12px; text-align: right; }
+.data-table td::before { content: attr(data-label); font-size: 12px; color: var(--text-muted); font-weight: 500; text-align: left; }
+.data-table td.cell-title { display: block; text-align: left; font-size: 15.5px; margin-bottom: 6px; padding-bottom: 8px; border-bottom: 1px solid var(--bg-alt); }
+.data-table td.cell-title::before { display: none; }
+.data-table td.cell-action { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--bg-alt); }
+.data-table td.cell-action::before { display: none; }
+.data-table td.cell-action .btn { width: 100%; }
+.req-card, .form-card { padding: 18px; }
+.req-table td { display: block; width: 100% !important; padding: 4px 0; }
+.req-table tr { display: block; padding: 8px 0; }
+}
+    </style>
+</head>
+<body>
+        <div class="topbar">
+        <div class="container topbar-inner">
+            <span>ООО «Симбирская промышленная индустрия»</span>
+            <span><a href="mailto:tpomsk@bk.ru">tpomsk@bk.ru</a> · г. Ульяновск</span>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="container header-inner">
+            <a href="#" class="brand">
+                <div class="brand-badge">20ЮЧ</div>
+                <div class="brand-text">
+                    <span class="brand-title">Сталь 20ЮЧ</span>
+                    <span class="brand-sub">Симбирская промышленная индустрия</span>
+                </div>
+            </a>
+
+            <nav class="nav">
+                <a href="#catalog">Каталог</a>
+                <a href="#pricelist">Наличие и цены</a>
+                <a href="#calculator">Калькулятор</a>
+                <a href="#comparison">Сравнение и FAQ</a>
+                <a href="#requisites">Реквизиты</a>
+            </nav>
+
+            <div class="header-contacts">
+                <a href="tel:+79253914531" class="header-phone">+7 (925) 391-45-31</a>
+                <a href="#order-form" class="btn btn-primary btn-sm header-cta-desktop">Запросить цену</a>
+                <button class="burger-btn" aria-label="Открыть меню" onclick="toggleMobileMenu()">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <nav class="mobile-nav" id="mobile-nav">
+            <a href="#catalog" onclick="closeMobileMenu()">Каталог продукции</a>
+            <a href="#pricelist" onclick="closeMobileMenu()">Наличие и цены</a>
+            <a href="#calculator" onclick="closeMobileMenu()">Калькулятор веса (ГОСТ)</a>
+            <a href="#comparison" onclick="closeMobileMenu()">Сравнение марок и FAQ</a>
+            <a href="#requisites" onclick="closeMobileMenu()">Реквизиты компании</a>
+            <div class="mobile-nav-actions">
+                <a href="#order-form" class="btn btn-primary" onclick="closeMobileMenu()">Отправить спецификацию / чертёж</a>
+                <a href="https://t.me/+79253914531" target="_blank" rel="noopener" class="btn btn-outline">Написать в Telegram</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container hero-grid">
+            <div>
+                <div class="tag-pill"><span class="tag-dot"></span> Стойкость к сероводородному (H₂S) растрескиванию</div>
+                <h1>Детали трубопровода и металлопрокат из стали 20ЮЧ</h1>
+                <p class="hero-desc">Комплексные поставки труб, отводов, переходов, тройников, фланцев, эллиптических днищ, обечаек и листового проката для газовой и нефтехимической промышленности.</p>
+                <div class="hero-actions">
+                    <a href="#order-form" class="btn btn-primary">Отправить спецификацию</a>
+                    <a href="#pricelist" class="btn btn-outline">Наличие и цены</a>
+                </div>
+            </div>
+            <div class="hero-spec-box">
+                <h3>Технический паспорт марки</h3>
+                <ul class="spec-list">
+                    <li><span>Класс стали</span> <span class="spec-val">Конструкционная легированная</span></li>
+                    <li><span>Плотность</span> <span class="spec-val">7 850 кг/м³</span></li>
+                    <li><span>Рабочая температура</span> <span class="spec-val">−40 … +475 °C</span></li>
+                    <li><span>Среды эксплуатации</span> <span class="spec-val">H₂S, CO₂, давление</span></li>
+                    <li><span>Нормативная база</span> <span class="spec-val">ГОСТ, ТУ 14-1-4853</span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <div class="metrics">
+        <div class="container metrics-grid">
+            <div class="metric-item"><div class="metric-num">13 видов</div><div class="metric-label">Продукции из стали 20ЮЧ в каталоге</div></div>
+            <div class="metric-item"><div class="metric-num">D 18–1800 мм</div><div class="metric-label">Диапазон диаметров поставляемых труб</div></div>
+            <div class="metric-item"><div class="metric-num">−40…+475 °C</div><div class="metric-label">Диапазон рабочих температур эксплуатации</div></div>
+            <div class="metric-item"><div class="metric-num">100% контроль</div><div class="metric-label">Сертификаты качества на каждую партию</div></div>
+        </div>
+    </div>
+        <section id="catalog" class="section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-eyebrow">Номенклатура поставок</div>
+                <h2 class="section-title">Каталог изделий из стали 20ЮЧ</h2>
+                <p class="section-subtitle">Поставка из наличия со склада и изготовление нестандартных позиций по чертежам заказчика.</p>
+            </div>
+            <div class="catalog-grid">
+                <div class="product-card">
+                    <div><div class="product-card-top"><div class="product-title">Трубы 20ЮЧ</div><span class="product-gost">ГОСТ 8732 / 8734</span></div><p class="product-desc">Бесшовные горячедеформированные, холоднодеформированные и электросварные трубы D18–1800 мм.</p></div>
+                    <div class="product-footer"><span class="stock-badge">● В наличии / под заказ</span><button class="card-link" onclick="selectProduct('Трубы из стали 20ЮЧ')">Запросить →</button></div>
+                </div>
+                <div class="product-card">
+                    <div><div class="product-card-top"><div class="product-title">Отводы 20ЮЧ</div><span class="product-gost">ГОСТ 17375-01</span></div><p class="product-desc">Крутоизогнутые бесшовные D32–820 мм, сварные секторные D108–1820 мм, точёные D18–426 мм.</p></div>
+                    <div class="product-footer"><span class="stock-badge">● В наличии / под заказ</span><button class="card-link" onclick="selectProduct('Отводы из стали 20ЮЧ')">Запросить →</button></div>
+                </div>
+                <div class="product-card">
+                    <div><div class="product-card-top"><div class="product-title">Переходы 20ЮЧ</div><span class="product-gost">ГОСТ 17378-01</span></div><p class="product-desc">Концентрические и эксцентрические бесшовные, штампосварные и точёные переходы.</p></div>
+                    <div class="product-footer"><span class="stock-badge">● В наличии / под заказ</span><button class="card-link" onclick="selectProduct('Переходы из стали 20ЮЧ')">Запросить →</button></div>
+                </div>
+                <div class="product-card">
+                    <div><div class="product-card-top"><div class="product-title">Тройники 20ЮЧ</div><span class="product-gost">ГОСТ 17376-01</span></div><p class="product-desc">Равнопроходные и переходные тройники для магистральных и промысловых трубопроводов.</p></div>
+                    <div class="product-footer"><span class="stock-badge">● В наличии / под заказ</span><button class="card-link" onclick="selectProduct('Тройники из стали 20ЮЧ')">Запросить →</button></div>
+                </div>
+                <div class="product-card">
+                    <div><div class="product-card-top"><div class="product-title">Фланцы 20ЮЧ</div><span class="product-gost">ГОСТ 33259 / 12820</span></div><p class="product-desc">Плоские приварные, воротниковые встык, свободные на приварном кольце и резьбовые.</p></div>
+                    <div class="product-footer"><span class="stock-badge">● В наличии / под заказ</span><button class="card-link" onclick="selectProduct('Фланцы из стали 20ЮЧ')">Запросить →</button></div>
+                </div>
+                <div class="product-card">
+                    <div><div class="product-card-top"><div class="product-title">Днища эллиптические</div><span class="product-gost">ГОСТ 6533-78</span></div><p class="product-desc">Отбортованные эллиптические днища внутренним диаметром Dв 250–3800 мм для сосудов и аппаратов.</p></div>
+                    <div class="product-footer"><span class="stock-badge">● Изготовление</span><button class="card-link" onclick="selectProduct('Днища эллиптические 20ЮЧ')">Запросить →</button></div>
+                </div>
+                <div class="product-card">
+                    <div><div class="product-card-top"><div class="product-title">Заглушки 20ЮЧ</div><span class="product-gost">ГОСТ 17379-01</span></div><p class="product-desc">Эллиптические приварные заглушки D32–530 мм, а также фланцевые и поворотные заглушки АТК.</p></div>
+                    <div class="product-footer"><span class="stock-badge">● В наличии</span><button class="card-link" onclick="selectProduct('Заглушки из стали 20ЮЧ')">Запросить →</button></div>
+                </div>
+                <div class="product-card">
+                    <div><div class="product-card-top"><div class="product-title">Листовой прокат 20ЮЧ</div><span class="product-gost">ТУ 14-1-4853</span></div><p class="product-desc">Горячекатаный лист толщиной 8–60 мм (раскрой 1500–2000×6000 мм) с испытаниями на стойкость к H₂S.</p></div>
+                    <div class="product-footer"><span class="stock-badge">● В наличии</span><button class="card-link" onclick="selectProduct('Листовой прокат 20ЮЧ')">Запросить →</button></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricelist" class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-eyebrow">Складская справка</div>
+                <h2 class="section-title">Наличие и цены на сталь 20ЮЧ</h2>
+                <p class="section-subtitle">Актуальные складские позиции. Нажмите «В заявку», чтобы добавить позицию в расчёт.</p>
+            </div>
+
+            <div class="filter-bar">
+                <input type="text" id="price-search" class="form-control" style="flex: 1; min-width: 220px;" placeholder="Поиск по размеру или ГОСТ (например: 159х8)..." oninput="filterPriceTable()">
+                <select id="price-cat-filter" class="form-control" style="min-width: 190px; flex: 0 1 240px;" onchange="filterPriceTable()">
+                    <option value="">Все категории</option>
+                </select>
+            </div>
+
+            <div class="table-wrap">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Категория</th>
+                            <th>Наименование / Размер</th>
+                            <th>ГОСТ / ТУ</th>
+                            <th>Наличие</th>
+                            <th>Цена с НДС</th>
+                            <th style="text-align: right;">Заказ</th>
+                        </tr>
+                    </thead>
+                    <tbody id="price-table-body">
+                        <tr><td colspan="6" style="text-align: center; padding: 24px; color: var(--text-muted);">Загрузка актуального прайс-листа...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+        <section id="calculator" class="section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-eyebrow">Инженерный инструмент</div>
+                <h2 class="section-title">Калькулятор теоретического веса стали 20ЮЧ</h2>
+                <p class="section-subtitle">Выберите стандартный типоразмер по ГОСТ/ТУ из списка или введите индивидуальные параметры (ρ = 7 850 кг/м³).</p>
+            </div>
+
+            <div class="calc-wrapper">
+                <div class="calc-tabs" role="tablist">
+                    <button class="calc-tab active" onclick="switchCalcTab('pipe', this)">Труба круглая</button>
+                    <button class="calc-tab" onclick="switchCalcTab('sheet', this)">Лист стальной</button>
+                    <button class="calc-tab" onclick="switchCalcTab('round', this)">Круг / Пруток</button>
+                    <button class="calc-tab" onclick="switchCalcTab('flange', this)">Кольцо / Фланец</button>
+                </div>
+
+                <div class="calc-body">
+                    <div id="calc-fields" class="calc-inputs"></div>
+                    <div class="calc-result-panel">
+                        <div>
+                            <div class="calc-result-row">
+                                <div class="calc-result-label">Теоретическая масса партии</div>
+                                <div class="calc-result-value" id="res-total-kg">0.00 кг</div>
+                                <div class="calc-result-sub" id="res-total-ton">0.000 т</div>
+                            </div>
+                            <div class="calc-result-row" style="margin-top: 12px;">
+                                <div class="calc-result-label" id="res-unit-label">Масса 1 метра / 1 шт</div>
+                                <div class="calc-result-sub" id="res-unit-val" style="font-size: 18px; color: var(--navy);">0.00 кг</div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" style="width: 100%;" onclick="transferCalcToOrder()">Вставить расчёт в заявку</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="comparison" class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-eyebrow">Технический справочник</div>
+                <h2 class="section-title">Сравнение стали 20ЮЧ со сталью 20 и 09Г2С</h2>
+                <p class="section-subtitle">Ключевые эксплуатационные и химические отличия при выборе материала для трубопроводов и сосудов под давлением.</p>
+            </div>
+
+            <div class="chem-scroll" style="margin-bottom: 44px;">
+                <table class="chem-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 28%;">Параметр / Свойство</th>
+                            <th style="width: 26%; background: var(--steel-accent);">Сталь 20ЮЧ (ТУ 14-1-4853)</th>
+                            <th style="width: 23%;">Сталь 20 (ГОСТ 1050)</th>
+                            <th style="width: 23%;">Сталь 09Г2С (ГОСТ 19281)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Стойкость к H₂S и СКРН</strong> (сероводородное растрескивание)</td>
+                            <td class="highlight-col">Высокая (испытывается на стойкость к СКРН и водородному охрупчиванию)</td>
+                            <td>Низкая (не предназначена для агрессивных сероводородных сред)</td>
+                            <td>Ограниченная (требует специальной термообработки и контроля твёрдости)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Рабочая температура</strong></td>
+                            <td class="highlight-col">От −40 °C до +475 °C</td>
+                            <td>От −20 °C до +450 °C</td>
+                            <td>От −70 °C до +425 °C</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Раскисление и модифицирование</strong></td>
+                            <td class="highlight-col">Алюминий («Ю») + церий/кальций («Ч») для глобуляризации включений</td>
+                            <td>Спокойная углеродистая сталь без спецмодифицирования</td>
+                            <td>Низколегированная марганцем и кремнием сталь</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Содержание серы (S) и фосфора (P)</strong></td>
+                            <td class="highlight-col">Особо чистое: S ≤ 0,015%, P ≤ 0,020%</td>
+                            <td>S ≤ 0,040%, P ≤ 0,035%</td>
+                            <td>S ≤ 0,035%, P ≤ 0,030%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Свариваемость</strong></td>
+                            <td class="highlight-col">Без ограничений, минимальный риск холодных трещин</td>
+                            <td>Без ограничений</td>
+                            <td>Без ограничений</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Основное назначение</strong></td>
+                            <td class="highlight-col">Нефтегазопроводы с примесью H₂S, сепараторы, теплообменники, ГПЗ</td>
+                            <td>Водо- и паропроводы, общепромышленные трубопроводы</td>
+                            <td>Северные магистральные трубопроводы, несущие металлоконструкции</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="two-col">
+                <div>
+                    <div class="section-eyebrow">Частые вопросы снабженцев и инженеров</div>
+                    <h3 style="font-size: 22px; color: var(--navy-dark); margin-bottom: 16px;">FAQ по поставкам стали 20ЮЧ</h3>
+                    <div class="faq-list">
+                        <details class="faq-item" open>
+                            <summary>Чем подтверждается стойкость стали 20ЮЧ к сероводороду?</summary>
+                            <div class="faq-answer">На каждую партию проката и деталей трубопровода предоставляется оригинал или заверенная копия сертификата качества завода-изготовителя с указанием плавки, химического состава, механических свойств, ударной вязкости при −40 °C и результатов испытаний на стойкость к СКРН / водородному растрескиванию (HIC/SSC) по ТУ 14-1-4853-90.</div>
+                        </details>
+                        <details class="faq-item">
+                            <summary>Можно ли заменить сталь 20ЮЧ на сталь 20 или 09Г2С в проекте?</summary>
+                            <div class="faq-answer">Замена стали 20ЮЧ на обычную сталь 20 недопустима, так как углеродистая сталь без модифицирования редкоземельными элементами быстро разрушается под действием сероводорода (H₂S). Замена возможна только на специальные коррозионностойкие марки (например, 09ГСФ или 13ХФА) строго по согласованию с проектной организацией.</div>
+                        </details>
+                        <details class="faq-item">
+                            <summary>Изготавливаете ли нестандартные детали по чертежам заказчика?</summary>
+                            <div class="faq-answer">Да, помимо складских позиций по ГОСТ 17375, 17376, 17378, 33259, мы производим точёные отводы и переходы, нестандартные фланцы, вальцованные обечайки, штуцеры и поковки из стали 20ЮЧ по вашим чертежам с проведением УЗК и ВИК.</div>
+                        </details>
+                        <details class="faq-item">
+                            <summary>Как осуществляется доставка в регионы РФ и СНГ?</summary>
+                            <div class="faq-answer">Отгружаем продукцию со склада в Ульяновске и с производственных площадок партнёров через транспортные компании («Деловые Линии», «ПЭК», «Байкал-Сервис»), выделенным автотранспортом (от Газели до 20-тонной еврофуры), а также ж/д контейнерами и полувагонами.</div>
+                        </details>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="section-eyebrow">Порядок работы</div>
+                    <h3 style="font-size: 22px; color: var(--navy-dark); margin-bottom: 16px;">Этапы отгрузки на объект</h3>
+                    <div class="steps-grid" style="grid-template-columns: 1fr 1fr;">
+                        <div class="step-card"><div class="step-num">01</div><div class="step-title">Заявка и ТЗ</div><div class="step-desc">Присылаете спецификацию или чертёж в форму ниже.</div></div>
+                        <div class="step-card"><div class="step-num">02</div><div class="step-title">КП за 1 день</div><div class="step-desc">Фиксируем цену, наличие на складе и точный срок выпуска.</div></div>
+                        <div class="step-card"><div class="step-num">03</div><div class="step-title">Контроль ОТК</div><div class="step-desc">Комплектуем партию паспортами и сертификатами плавки.</div></div>
+                        <div class="step-card"><div class="step-num">04</div><div class="step-title">Доставка</div><div class="step-desc">Отправляем груз до вашего склада или строительной площадки.</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+        <section id="requisites" class="section">
+        <div class="container requisites-grid">
+            <div class="req-card">
+                <div class="req-header">
+                    <div>
+                        <div class="section-eyebrow">Карточка предприятия</div>
+                        <h2 class="section-title" style="font-size: 21px;">Реквизиты компании</h2>
+                    </div>
+                    <button type="button" class="btn btn-outline btn-sm" onclick="copyRequisites()">Скопировать</button>
+                </div>
+
+                <table class="req-table">
+                    <tr><td>Полное наименование</td><td>Общество с ограниченной ответственностью «Симбирская промышленная индустрия»</td></tr>
+                    <tr><td>Сокращённое наименование</td><td>ООО «СПИ» / ООО «Симбирская промышленная индустрия»</td></tr>
+                    <tr><td>Юридический адрес</td><td>432071, Россия, г. Ульяновск, ул. Нижнеполевая, д. 11</td></tr>
+                    <tr><td>Почтовый адрес</td><td>432001, Россия, г. Ульяновск, а/я 2223</td></tr>
+                    <tr><td>ИНН / КПП</td><td>Уточняется по запросу в счёте / карточке партнёра</td></tr>
+                    <tr><td>ОГРН</td><td>Уточняется по запросу в карточке партнёра</td></tr>
+                    <tr><td>Телефон отдела продаж</td><td><a href="tel:+79253914531">+7 (925) 391-45-31</a></td></tr>
+                    <tr><td>Telegram</td><td><a href="https://t.me" target="_blank" rel="noopener">t.me/+79253914531</a></td></tr>
+                    <tr><td>Электронная почта</td><td><a href="mailto:tpomsk@bk.ru">tpomsk@bk.ru</a></td></tr>
+                    <tr><td>Режим работы</td><td>Пн–Пт: 08:30 – 17:30 (МСК+1)</td></tr>
+                </table>
+            </div>
+
+            <div class="form-card" id="order-form">
+                <h3>Запросить стоимость и наличие</h3>
+                <p>Укажите позиции из стали 20ЮЧ или прикрепите спецификацию / чертёж — заявка поступит на почту tpomsk@bk.ru.</p>
+                <form id="ajax-order-form" onsubmit="handleOrderSubmit(event)" enctype="multipart/form-data">
+                    <input type="text" name="_honey" style="display:none">
+                    <input type="text" class="dark-input" name="name" id="client-name" placeholder="Ваше имя и организация" required>
+                    <input type="tel" class="dark-input" name="phone" id="client-phone" placeholder="Телефон для связи *" required>
+                    <input type="email" class="dark-input" name="email" id="client-email" placeholder="Электронная почта">
+                    <textarea class="dark-input" name="message" id="client-message" rows="3" placeholder="Наименование изделий, размеры, ГОСТ/ТУ, количество..." required></textarea>
+
+                    <label class="file-upload-box" for="spec-files">
+                        <span class="file-upload-title">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
+                            </svg>
+                            Прикрепить спецификацию или чертёж
+                        </span>
+                        <span class="file-upload-hint">PDF, Excel (XLS/XLSX), Word, DWG, JPG/PNG (до 10 МБ)</span>
+                        <input type="file" id="spec-files" name="attachment" multiple accept=".pdf,.xls,.xlsx,.doc,.docx,.dwg,.jpg,.jpeg,.png" style="display: none;" onchange="handleFileSelect(this)">
+                    </label>
+                    <div id="file-list" class="file-list"></div>
+
+                    <label class="checkbox-row">
+                        <input type="checkbox" checked required style="margin-top: 3px; width: 16px; height: 16px; flex-shrink: 0;">
+                        <span>Согласен на обработку персональных данных для расчёта заявки и обратной связи.</span>
+                    </label>
+                    <button type="submit" id="submit-btn" class="btn btn-light">Отправить заявку на расчёт</button>
+                    <div id="form-status" class="form-status"></div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-inner">
+                <div style="max-width: 420px;">
+                    <div style="color: #FFFFFF; font-weight: 700; font-size: 16px; margin-bottom: 8px;">ООО «Симбирская промышленная индустрия»</div>
+                    <p>Комплексные поставки деталей трубопровода и металлопроката из стали 20ЮЧ для газовой и нефтехимической промышленности.</p>
+                </div>
+                <div>
+                    <div style="color: #FFFFFF; font-weight: 600; margin-bottom: 8px;">Адреса</div>
+                    <div>Юр. адрес: 432071, г. Ульяновск, ул. Нижнеполевая, 11</div>
+                    <div>Почт. адрес: 432001, г. Ульяновск, а/я 2223</div>
+                </div>
+                <div>
+                    <div style="color: #FFFFFF; font-weight: 600; margin-bottom: 8px;">Контакты</div>
+                    <div>Тел.: <a href="tel:+79253914531" style="color: #FFFFFF;">+7 (925) 391-45-31</a></div>
+                    <div>Email: <a href="mailto:tpomsk@bk.ru" style="color: #FFFFFF;">tpomsk@bk.ru</a></div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2026 ООО «Симбирская промышленная индустрия». Все права защищены.</span>
+                <span>Информация на сайте носит справочный характер и не является публичной офертой.</span>
+            </div>
+        </div>
+    </footer>
+
+    <div class="toast" id="toast"></div>
+
+    <div class="mobile-sticky-bar">
+        <a href="tel:+79253914531" class="sticky-btn sticky-btn-call">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+            Позвонить
+        </a>
+        <a href="https://t.me" target="_blank" rel="noopener" class="sticky-btn sticky-btn-tg">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+            </svg>
+            Написать в Telegram
+        </a>
+    </div>
+        <script>
+        function toggleMobileMenu() { document.getElementById('mobile-nav').classList.toggle('open'); }
+        function closeMobileMenu() { document.getElementById('mobile-nav').classList.remove('open'); }
+
+        const GOOGLE_SHEET_CSV_URL = 'https://google.com';
+
+        const fallbackData = [
+            { category: 'Трубы', name: 'Труба бесшовная 159×8 мм ст. 20ЮЧ', gost: 'ГОСТ 8732-78', stock: '18.4 т', price: '192 000 ₽/т' },
+            { category: 'Трубы', name: 'Труба бесшовная 219×10 мм ст. 20ЮЧ', gost: 'ГОСТ 8732-78', stock: '12.0 т', price: '195 000 ₽/т' },
+            { category: 'Отводы', name: 'Отвод крутоизогнутый 90° 159×8 ст. 20ЮЧ', gost: 'ГОСТ 17375-01', stock: '45 шт', price: '4 850 ₽/шт' },
+            { category: 'Лист', name: 'Лист горячекатаный 16×2000×6000 ст. 20ЮЧ', gost: 'ТУ 14-1-4853', stock: '24.5 т', price: '148 000 ₽/т' },
+            { category: 'Фланцы', name: 'Фланец воротниковый Ду150 Ру40 ст. 20ЮЧ', gost: 'ГОСТ 33259-15', stock: '30 шт', price: '6 200 ₽/шт' }
+        ];
+
+        let allPriceRows = [];
+
+        function parseCSV(text) {
+            const lines = text.trim().split(/\r?\n/);
+            return lines.slice(1).map(line => {
+                const cols = line.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(c => c.replace(/^"|"$/g, '').trim());
+                return { category: cols[0] || '', name: cols[1] || '', gost: cols[2] || '', stock: cols[3] || '', price: cols[4] || '' };
+            }).filter(item => item.name);
+        }
+
+        async function loadPriceList() {
+            try {
+                if (GOOGLE_SHEET_CSV_URL.includes('ВАШ_ID_ТАБЛИЦЫ')) {
+                    allPriceRows = fallbackData;
+                } else {
+                    const response = await fetch(GOOGLE_SHEET_CSV_URL);
+                    const csvText = await response.text();
+                    allPriceRows = parseCSV(csvText);
+                }
+            } catch (err) {
+                allPriceRows = fallbackData;
+            }
+            const select = document.getElementById('price-cat-filter');
+            [...new Set(allPriceRows.map(r => r.category).filter(Boolean))].forEach(cat => {
+                const opt = document.createElement('option');
+                opt.value = cat; opt.textContent = cat;
+                select.appendChild(opt);
+            });
+            renderPriceRows(allPriceRows);
+        }
+
+        function renderPriceRows(rows) {
+            const tbody = document.getElementById('price-table-body');
+            if (!rows.length) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:20px;">По вашему запросу позиций не найдено</td></tr>';
+                return;
+            }
+            tbody.innerHTML = rows.map(r => `
+                <tr>
+                    <td data-label="Категория" style="color: var(--text-muted);">${r.category}</td>
+                    <td class="cell-title" style="font-weight: 700; color: var(--navy);">${r.name}</td>
+                    <td data-label="Стандарт">${r.gost}</td>
+                    <td data-label="Наличие" style="color: var(--success); font-weight: 600;">${r.stock}</td>
+                    <td data-label="Цена с НДС" style="font-weight: 700;">${r.price}</td>
+                    <td class="cell-action" style="text-align: right;">
+                        <button class="btn btn-outline btn-sm" onclick="selectProduct('${r.name.replace(/'/g, "\\'")}')">В заявку</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function filterPriceTable() {
+            const q = document.getElementById('price-search').value.toLowerCase();
+            const cat = document.getElementById('price-cat-filter').value;
+            renderPriceRows(allPriceRows.filter(r => (!cat || r.category === cat) && (!q || [r.name, r.gost, r.category].join(' ').toLowerCase().includes(q))));
+        }
+        const DENSITY = 7850;
+        let currentTab = 'pipe';
+        let lastCalcSummary = '';
+
+        const calcConfig = {
+            pipe: {
+                unitLabel: 'Масса 1 погонного метра',
+                presetLabel: 'Стандартный типоразмер по ГОСТ 8732-78',
+                presets: [
+                    { label: 'Индивидуальный размер (вручную)', values: null },
+                    { label: 'Труба 57×4 мм (ГОСТ 8732-78)', values: { d: 57, s: 4, l: 12, qty: 1 } },
+                    { label: 'Труба 89×5 мм (ГОСТ 8732-78)', values: { d: 89, s: 5, l: 12, qty: 1 } },
+                    { label: 'Труба 108×6 мм (ГОСТ 8732-78)', values: { d: 108, s: 6, l: 12, qty: 1 } },
+                    { label: 'Труба 159×8 мм (ГОСТ 8732-78)', values: { d: 159, s: 8, l: 12, qty: 1 } },
+                    { label: 'Труба 219×10 мм (ГОСТ 8732-78)', values: { d: 219, s: 10, l: 12, qty: 1 } },
+                    { label: 'Труба 273×12 мм (ГОСТ 8732-78)', values: { d: 273, s: 12, l: 12, qty: 1 } },
+                    { label: 'Труба 325×14 мм (ГОСТ 8732-78)', values: { d: 325, s: 14, l: 12, qty: 1 } },
+                    { label: 'Труба 426×16 мм (ГОСТ 8732-78)', values: { d: 426, s: 16, l: 12, qty: 1 } }
+                ],
+                fields: [
+                    { id: 'd', label: 'Наружный диаметр D (мм)', val: 159, step: '0.1' },
+                    { id: 's', label: 'Толщина стенки S (мм)', val: 8, step: '0.1' },
+                    { id: 'l', label: 'Длина L (м)', val: 12, step: '0.1' },
+                    { id: 'qty', label: 'Количество (шт)', val: 1, step: '1' }
+                ],
+                compute: (v) => {
+                    if (v.d <= 2 * v.s || v.d <= 0 || v.s <= 0) return { unit: 0, total: 0, desc: '' };
+                    const mPerMeter = (Math.PI * (v.d - v.s) * v.s * DENSITY) / 1e6;
+                    const total = mPerMeter * v.l * v.qty;
+                    return { unit: mPerMeter, total: total, desc: `Труба сталь 20ЮЧ ${v.d}×${v.s} мм (ГОСТ 8732-78), длина ${v.l} м × ${v.qty} шт — расчётный вес ${total.toFixed(2)} кг` };
+                }
+            },
+            sheet: {
+                unitLabel: 'Масса 1 листа',
+                presetLabel: 'Стандартный раскрой листа по ТУ 14-1-4853 / ГОСТ 19903',
+                presets: [
+                    { label: 'Индивидуальный раскрой (вручную)', values: null },
+                    { label: 'Лист 10×1500×6000 мм', values: { s: 10, w: 1500, l: 6000, qty: 1 } },
+                    { label: 'Лист 12×2000×6000 мм', values: { s: 12, w: 2000, l: 6000, qty: 1 } },
+                    { label: 'Лист 16×2000×6000 мм', values: { s: 16, w: 2000, l: 6000, qty: 1 } },
+                    { label: 'Лист 20×2000×6000 мм', values: { s: 20, w: 2000, l: 6000, qty: 1 } },
+                    { label: 'Лист 30×2000×6000 мм', values: { s: 30, w: 2000, l: 6000, qty: 1 } },
+                    { label: 'Лист 40×2000×6000 мм', values: { s: 40, w: 2000, l: 6000, qty: 1 } }
+                ],
+                fields: [
+                    { id: 's', label: 'Толщина S (мм)', val: 16, step: '0.5' },
+                    { id: 'w', label: 'Ширина B (мм)', val: 2000, step: '10' },
+                    { id: 'l', label: 'Длина L (мм)', val: 6000, step: '10' },
+                    { id: 'qty', label: 'Количество листов (шт)', val: 1, step: '1' }
+                ],
+                compute: (v) => {
+                    const mOne = (v.s * v.w * v.l * DENSITY) / 1e9;
+                    const total = mOne * v.qty;
+                    return { unit: mOne, total: total, desc: `Лист сталь 20ЮЧ ${v.s}×${v.w}×${v.l} мм × ${v.qty} шт — расчётный вес ${total.toFixed(2)} кг` };
+                }
+            },
+            round: {
+                unitLabel: 'Масса 1 погонного метра',
+                presetLabel: 'Стандартный диаметр по ГОСТ 2590-2006',
+                presets: [
+                    { label: 'Индивидуальный диаметр (вручную)', values: null },
+                    { label: 'Круг D50 мм (ГОСТ 2590-2006)', values: { d: 50, l: 6, qty: 1 } },
+                    { label: 'Круг D80 мм (ГОСТ 2590-2006)', values: { d: 80, l: 6, qty: 1 } },
+                    { label: 'Круг D100 мм (ГОСТ 2590-2006)', values: { d: 100, l: 6, qty: 1 } },
+                    { label: 'Круг D120 мм (ГОСТ 2590-2006)', values: { d: 120, l: 4.5, qty: 1 } },
+                    { label: 'Круг D160 мм (ГОСТ 2590-2006)', values: { d: 160, l: 4, qty: 1 } },
+                    { label: 'Круг D200 мм (ГОСТ 2590-2006)', values: { d: 200, l: 3, qty: 1 } }
+                ],
+                fields: [
+                    { id: 'd', label: 'Диаметр круга D (мм)', val: 120, step: '1' },
+                    { id: 'l', label: 'Длина L (м)', val: 4.5, step: '0.1' },
+                    { id: 'qty', label: 'Количество (шт)', val: 1, step: '1' }
+                ],
+                compute: (v) => {
+                    const mPerMeter = (Math.PI * Math.pow(v.d / 2, 2) * DENSITY) / 1e6;
+                    const total = mPerMeter * v.l * v.qty;
+                    return { unit: mPerMeter, total: total, desc: `Круг сталь 20ЮЧ D${v.d} мм, длина ${v.l} м × ${v.qty} шт — расчётный вес ${total.toFixed(2)} кг` };
+                }
+            },
+            flange: {
+                unitLabel: 'Масса 1 заготовки / кольца',
+                presetLabel: 'Типовые габариты заготовок фланцев ГОСТ 33259-2015',
+                presets: [
+                    { label: 'Индивидуальные габариты (вручную)', values: null },
+                    { label: 'Заготовка под фланец Ду50 Ру40 (160/57×20)', values: { dout: 160, din: 57, h: 20, qty: 4 } },
+                    { label: 'Заготовка под фланец Ду100 Ру40 (235/108×24)', values: { dout: 235, din: 108, h: 24, qty: 4 } },
+                    { label: 'Заготовка под фланец Ду150 Ру40 (300/159×28)', values: { dout: 300, din: 159, h: 28, qty: 4 } },
+                    { label: 'Заготовка под фланец Ду200 Ру40 (375/219×34)', values: { dout: 375, din: 219, h: 34, qty: 2 } },
+                    { label: 'Заготовка под фланец Ду300 Ру40 (515/325×42)', values: { dout: 515, din: 325, h: 42, qty: 2 } }
+                ],
+                fields: [
+                    { id: 'dout', label: 'Наружный диаметр Dн (мм)', val: 300, step: '1' },
+                    { id: 'din', label: 'Внутренний диаметр Dв (мм)', val: 159, step: '1' },
+                    { id: 'h', label: 'Толщина / высота H (мм)', val: 28, step: '1' },
+                    { id: 'qty', label: 'Количество (шт)', val: 4, step: '1' }
+                ],
+                compute: (v) => {
+                    if (v.dout <= v.din) return { unit: 0, total: 0, desc: '' };
+                    const area = Math.PI * (Math.pow(v.dout / 2, 2) - Math.pow(v.din / 2, 2));
+                    const mOne = (area * v.h * DENSITY) / 1e9;
+                    const total = mOne * v.qty;
+                    return { unit: mOne, total: total, desc: `Заготовка/фланец сталь 20ЮЧ Dн${v.dout}/Dв${v.din}×${v.h} мм × ${v.qty} шт — расчётный вес ${total.toFixed(2)} кг` };
+                }
+            }
+        };
+        function switchCalcTab(type, btn) {
+            currentTab = type;
+            document.querySelectorAll('.calc-tab').forEach(t => t.classList.remove('active'));
+            btn.classList.add('active');
+            renderCalcFields();
+        }
+
+        function renderCalcFields() {
+            const cfg = calcConfig[currentTab];
+            document.getElementById('res-unit-label').textContent = cfg.unitLabel;
+            const presetOptions = cfg.presets.map((p, idx) => `<option value="${idx}">${p.label}</option>`).join('');
+            const presetHtml = `
+                <div class="calc-preset-box">
+                    <div class="form-group">
+                        <label for="calc-preset-select">${cfg.presetLabel}</label>
+                        <select id="calc-preset-select" class="form-control" onchange="applyCalcPreset(this.value)">
+                            ${presetOptions}
+                        </select>
+                    </div>
+                </div>
+            `;
+            const inputsHtml = cfg.fields.map(f => `
+                <div class="form-group">
+                    <label for="inp-${f.id}">${f.label}</label>
+                    <input type="number" inputmode="decimal" id="inp-${f.id}" class="form-control" value="${f.val}" step="${f.step}" min="0" oninput="onManualInput()">
+                </div>
+            `).join('');
+            document.getElementById('calc-fields').innerHTML = presetHtml + inputsHtml;
+            recalculate();
+        }
+
+        function applyCalcPreset(idx) {
+            const preset = calcConfig[currentTab].presets[idx];
+            if (!preset || !preset.values) return;
+            Object.entries(preset.values).forEach(([key, val]) => {
+                const inp = document.getElementById('inp-' + key);
+                if (inp) inp.value = val;
+            });
+            recalculate();
+        }
+
+        function onManualInput() {
+            const sel = document.getElementById('calc-preset-select');
+            if (sel) sel.value = '0';
+            recalculate();
+        }
+
+        function recalculate() {
+            const cfg = calcConfig[currentTab];
+            const values = {};
+            cfg.fields.forEach(f => { values[f.id] = parseFloat(document.getElementById('inp-' + f.id).value) || 0; });
+            const res = cfg.compute(values);
+            document.getElementById('res-total-kg').textContent = res.total.toLocaleString('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' кг';
+            document.getElementById('res-total-ton').textContent = (res.total / 1000).toLocaleString('ru-RU', { minimumFractionDigits: 3, maximumFractionDigits: 3 }) + ' т';
+            document.getElementById('res-unit-val').textContent = res.unit.toLocaleString('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' кг';
+            lastCalcSummary = res.desc;
+        }
+
+        function transferCalcToOrder() {
+            if (!lastCalcSummary) return;
+            const msgBox = document.getElementById('client-message');
+            msgBox.value = msgBox.value ? msgBox.value + '\n' + lastCalcSummary : lastCalcSummary;
+            document.getElementById('order-form').scrollIntoView({ behavior: 'smooth' });
+            showToast('Параметры расчёта добавлены в форму заявки');
+        }
+
+        function selectProduct(name) {
+            const msgBox = document.getElementById('client-message');
+            const line = `Запрос стоимости: ${name}, количество: `;
+            msgBox.value = msgBox.value ? msgBox.value + '\n' + line : line;
+            document.getElementById('order-form').scrollIntoView({ behavior: 'smooth' });
+            msgBox.focus();
+        }
+
+        function copyRequisites() {
+            const text = 'ООО «Симбирская промышленная индустрия»\nЮр. адрес: 432071, г. Ульяновск, ул. Нижнеполевая, д. 11\nПочт. адрес: 432001, г. Ульяновск, а/я 2223\nТел.: +7 (925) 391-45-31\nEmail: tpomsk@bk.ru';
+            navigator.clipboard.writeText(text).then(() => showToast('Реквизиты скопированы в буфер обмена'));
+        }
+
+        let selectedFiles = [];
+
+        function handleFileSelect(input) {
+            const files = Array.from(input.files);
+            files.forEach(file => {
+                if (file.size > 10 * 1024 * 1024) {
+                    showToast(`Файл "${file.name}" превышает лимит 10 МБ`);
+                    return;
+                }
+                if (!selectedFiles.some(f => f.name === file.name && f.size === file.size)) {
+                    selectedFiles.push(file);
+                }
+            });
+            input.value = '';
+            renderFileList();
+        }
+
+        function removeSelectedFile(idx) {
+            selectedFiles.splice(idx, 1);
+            renderFileList();
+        }
+
+        function renderFileList() {
+            const container = document.getElementById('file-list');
+            container.innerHTML = selectedFiles.map((f, idx) => `
+                <div class="file-chip">
+                    <span>📄 ${f.name} (${(f.size / 1024).toFixed(0)} КБ)</span>
+                    <button type="button" class="file-remove" aria-label="Удалить файл" onclick="removeSelectedFile(${idx})">×</button>
+                </div>
+            `).join('');
+        }
+
+        async function handleOrderSubmit(e) {
+            e.preventDefault();
+            const form = e.target;
+            const btn = document.getElementById('submit-btn');
+            const statusBox = document.getElementById('form-status');
+
+            btn.disabled = true;
+            btn.textContent = 'Отправка заявки и файлов...';
+            statusBox.className = 'form-status';
+            statusBox.style.display = 'none';
+
+            const formData = new FormData();
+            formData.append('_subject', 'Новая заявка с сайта Сталь 20ЮЧ');
+            formData.append('_template', 'table');
+            formData.append('_captcha', 'false');
+            formData.append('Имя_Организация', document.getElementById('client-name').value.trim());
+            formData.append('Телефон', document.getElementById('client-phone').value.trim());
+            formData.append('Email', document.getElementById('client-email').value.trim() || 'Не указан');
+            formData.append('Спецификация', document.getElementById('client-message').value.trim());
+
+            selectedFiles.forEach((file, index) => {
+                formData.append(`attachment_${index + 1}`, file, file.name);
+            });
+
+            try {
+                const emailRes = await fetch('https://formsubmit.co', {
+                    method: 'POST',
+                    headers: { 'Accept': 'application/json' },
+                    body: formData
+                });
+
+                if (emailRes.ok) {
+                    statusBox.textContent = '✓ Заявка и прикреплённые файлы успешно отправлены на tpomsk@bk.ru. Менеджер свяжется с вами в ближайшее время.';
+                    statusBox.className = 'form-status success';
+                    showToast('Заявка успешно отправлена');
+                    form.reset();
+                    selectedFiles = [];
+                    renderFileList();
+                } else {
+                    throw new Error('Ошибка сервера отправки');
+                }
+            } catch (err) {
+                statusBox.innerHTML = 'Не удалось отправить автоматически. Вы можете отправить запрос и чертежи напрямую на <a href="mailto:tpomsk@bk.ru" style="text-decoration:underline; color:#fff;">tpomsk@bk.ru</a> или в Telegram.';
+                statusBox.className = 'form-status error';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Отправить заявку на расчёт';
+            }
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3500);
+        }
+
+        loadPriceList();
+        renderCalcFields();
+    </script>
+</body>
+</html>
